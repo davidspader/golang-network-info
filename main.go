@@ -1,14 +1,14 @@
 package main
 
 import (
-	"linha-de-comando/app"
+	"command-line/app"
 	"log"
 	"os"
 )
 
 func main() {
-	aplicacao := app.Gerar()
-	if erro := aplicacao.Run(os.Args); erro != nil {
-		log.Fatal(erro)
+	application := app.Generate()
+	if err := application.Run(os.Args); err != nil {
+		log.Fatal(err)
 	}
 }

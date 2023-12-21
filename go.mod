@@ -1,4 +1,4 @@
-module linha-de-comando
+module command-line
 
 go 1.21.5
 

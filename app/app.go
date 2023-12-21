@@ -8,10 +8,10 @@ import (
 	"github.com/urfave/cli"
 )
 
-func Gerar() *cli.App {
+func Generate() *cli.App {
 	app := cli.NewApp()
-	app.Name = "Aplicação linha de comando"
-	app.Usage = "Busca IP e nomes de servidor na internet"
+	app.Name = "Command Line Application"
+	app.Usage = "Searches for IP addresses and server names on the internet"
 
 	flags := []cli.Flag{
 		cli.StringFlag{
@@ -23,27 +23,27 @@ func Gerar() *cli.App {
 	app.Commands = []cli.Command{
 		{
 			Name:   "ip",
-			Usage:  "Busca IPS de endereços na internet",
+			Usage:  "Searches for IP addresses on the internet",
 			Flags:  flags,
-			Action: buscarIps,
+			Action: searchIPs,
 		},
 		{
-			Name:   "servidores",
-			Usage:  "Busca o nome de servidores na internet",
+			Name:   "servers",
+			Usage:  "Searches for server names on the internet",
 			Flags:  flags,
-			Action: buscarServidores,
+			Action: searchServers,
 		},
 	}
 
 	return app
 }
 
-func buscarIps(c *cli.Context) {
+func searchIPs(c *cli.Context) {
 	host := c.String("host")
 
-	ips, erro := net.LookupIP(host)
-	if erro != nil {
-		log.Fatal(erro)
+	ips, err := net.LookupIP(host)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	for _, ip := range ips {
@@ -51,15 +51,15 @@ func buscarIps(c *cli.Context) {
 	}
 }
 
-func buscarServidores(c *cli.Context) {
+func searchServers(c *cli.Context) {
 	host := c.String("host")
 
-	servidores, erro := net.LookupNS(host)
-	if erro != nil {
-		log.Fatal(erro)
+	servers, err := net.LookupNS(host)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	for _, servidor := range servidores {
-		fmt.Println(servidor.Host)
+	for _, server := range servers {
+		fmt.Println(server.Host)
 	}
 }
